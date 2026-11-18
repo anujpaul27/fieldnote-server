@@ -1,25 +1,17 @@
-const express = require('express')
-const authRouter = express.Router()
-const authController = require('../controllers/auth.controler')
+const express = require("express");
+const authRouter = express.Router();
+const authController = require("../controllers/auth.controler");
 
-/**
- *  POST /api/auth/register
- */
-authRouter.post('/register', authController.register)
+// POST /api/auth/register
+authRouter.post("/register", authController.register);
 
-/**
- * GET /api/auth/login
- */
-authRouter.get('/login',authController.LogIn)
+// POST /api/auth/login
+authRouter.post("/login", authController.logIn);
 
-/**
- * GET /api/auth/refresh-token 
- */
-authRouter.get('/refresh-token',authController.refreshToken)
+// POST /api/auth/refresh-token
+authRouter.post("/refresh-token", authController.refreshToken);
 
-/**
- * GET /api/auth/logout
- */
-// authRouter.get('/logout', )
+// POST /api/auth/logout
+authRouter.post("/logout", authController.logOut);
 
-module.exports = authRouter
+module.exports = authRouter;
