@@ -1,17 +1,12 @@
 const express = require("express");
-const authRouter = express.Router();
-const authController = require("../controllers/auth.controler");
+const authController = require("../controllers/auth.controller");
+const { asyncHandler } = require("../utils/errors");
 
-// POST /api/auth/register
-authRouter.post("/register", authController.register);
+const router = express.Router();
 
-// POST /api/auth/login
-authRouter.post("/login", authController.logIn);
+router.post("/register", asyncHandler(authController.register));
+router.post("/login", asyncHandler(authController.login));
+router.post("/refresh-token", asyncHandler(authController.refreshToken));
+router.post("/logout", asyncHandler(authController.logout));
 
-// POST /api/auth/refresh-token
-authRouter.post("/refresh-token", authController.refreshToken);
-
-// POST /api/auth/logout
-authRouter.post("/logout", authController.logOut);
-
-module.exports = authRouter;
+module.exports = router;
