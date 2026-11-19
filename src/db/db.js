@@ -1,13 +1,18 @@
 const mongoose = require("mongoose");
-const config = require('../config/config')
+const config = require("../config/config");
 
-const ConnectDB = async () => {
-  try {
-    await mongoose.connect(config.MONGODB_URI);
-    console.log("Database Connected..");
-  } catch (error) {
-    console.log(error.message);
+async function connectDB() {
+  if (!config.mongodbUri) {
+    throw new Error("MONGODB_URI is required before connecting to the database.");
   }
-};
 
-module.exports = ConnectDB;
+  try {
+    await mongoose.connect(config.mongodbUri, { serverSelectionTimeoutMS: 10000 });
+    console.log("MongoDB connected.");
+    return mongoose.connection;
+  } catch (error) {
+    throw new Error(`MongoDB connection failed: ${error.message}`, { cause: error });
+  }
+}
+
+module.exports = connectDB;
